@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendre sur Sooky — Ouvre ta boutique en 5 minutes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .hero-seller {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 120px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-seller::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .hero-seller::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -20%;
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .hero-seller .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-seller h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-seller p {
+      font-size: 22px;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+
+    .hero-seller .btn {
+      background: white;
+      color: var(--primary);
+      font-size: 18px;
+      padding: 18px 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-seller .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-top: 80px;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 12px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-stat-label {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .features-section {
+      padding: 100px 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .pricing-section {
+      background: var(--bg-secondary);
+      padding: 100px 0;
+    }
+
+    .pricing-card {
+      background: white;
+      padding: 60px;
+      border-radius: 32px;
+      max-width: 700px;
+      margin: 60px auto 0;
+      text-align: center;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+    }
+
+    .pricing-card .price {
+      font-family: 'Fraunces', serif;
+      font-size: 96px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card .price-note {
+      color: var(--text-muted);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin: 40px 0;
+    }
+
+    .pricing-features li {
+      padding: 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 16px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-success);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .pricing-highlight {
+      background: var(--bg-secondary);
+      padding: 24px;
+      border-radius: 16px;
+      margin-top: 32px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .steps-section {
+      padding: 100px 0;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 60px;
+    }
+
+    .step-card {
+      position: relative;
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .step-number {
+      font-family: 'Fraunces', serif;
+      font-size: 80px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+
+    .step-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .step-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .cta-section {
+      background: var(--gradient-accent);
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .cta-section .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 52px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-section p {
+      font-size: 20px;
+      opacity: 0.95;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section .btn {
+      background: white;
+      color: var(--primary);
+      font-size: 18px;
+      padding: 18px 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-section .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 968px) {
+      .hero-seller h1 {
+        font-size: 42px;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .features-grid,
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card {
+        padding: 40px 24px;
+      }
+
+      .pricing-card .price {
+        font-size: 72px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-seller">
+    <div class="container">
+      <h1>Ouvre ta boutique en ligne<br>en 5 minutes</h1>
+      <p>Rejoins +2,400 commerçants qui vendent déjà sur Sooky. Pas de frais d'inscription, pas d'abonnement.</p>
+      <a href="#" onclick="alert('Page en construction'); return false;" class="btn">Créer ma boutique gratuitement →</a>
+      
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">2,400+</div>
+          <div class="hero-stat-label">Boutiques actives</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3%</div>
+          <div class="hero-stat-label">Commission seulement</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">48h</div>
+          <div class="hero-stat-label">Premier paiement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Pourquoi vendre sur Sooky ?</h2>
+      <p style="text-align: center; color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 18px;">Tout ce dont tu as besoin pour vendre en ligne, sans compétences techniques</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Rapide</h3>
+          <p>Crée ta boutique en 5 minutes. Ajoute tes produits et commence à vendre immédiatement.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Économique</h3>
+          <p>Seulement 3% de commission. Pas de frais d'inscription, pas d'abonnement mensuel.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Simple</h3>
+          <p>Interface intuitive en français et darija. Support client disponible 7j/7 par WhatsApp.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Paiement intégré</h3>
+          <p>Accepte les paiements par carte bancaire, cash à la livraison. Paiement sous 48h.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Tableau de bord</h3>
+          <p>Gère tes commandes, ton stock et tes revenus depuis un seul endroit.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Visibilité</h3>
+          <p>Profite de notre trafic pour toucher de nouveaux clients chaque jour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Tarification transparente</h2>
+      
+      <div class="pricing-card">
+        <div class="price">3%</div>
+        <div class="price-note">de commission par vente</div>
+        
+        <ul class="pricing-features">
+          <li>Boutique en ligne professionnelle</li>
+          <li>Paiement en ligne sécurisé</li>
+          <li>Gestion des commandes en temps réel</li>
+          <li>Notifications SMS & WhatsApp</li>
+          <li>Tableau de bord complet</li>
+          <li>Support 7j/7 en darija</li>
+          <li>Paiement sous 48h sur ton compte</li>
+          <li>Pas de frais cachés</li>
+        </ul>
+
+        <div class="pricing-highlight">
+          <strong>0 DH</strong> d'inscription · <strong>0 DH</strong> d'abonnement mensuel
+        </div>
+
+        <a href="#" onclick="alert('Page en construction'); return false;" class="btn btn-primary" style="margin-top: 40px; width: 100%; justify-content: center; font-size: 17px;">Commencer maintenant →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Comment ça marche ?</h2>
+      <p style="text-align: center; color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 18px;">Trois étapes simples pour commencer à vendre</p>
+      
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Crée ta boutique</h3>
+          <p>Inscris-toi en 2 minutes. Ajoute ton logo, tes produits et tes horaires. Pas besoin de créer un site web.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Reçois des commandes</h3>
+          <p>Les clients découvrent ta boutique et passent commande. Tu reçois une notification instantanée par SMS et WhatsApp.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Gère ton business</h3>
+          <p>Tableau de bord simple pour gérer tes commandes, ton stock et tes revenus. Paiement direct sur ton compte sous 48h.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Prêt à commencer ?</h2>
+      <p>Rejoins des milliers de commerçants qui ont déjà fait le choix de Sooky</p>
+      <a href="#" onclick="alert('Page en construction'); return false;" class="btn">Créer ma boutique gratuitement →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="#">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

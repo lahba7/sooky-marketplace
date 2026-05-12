@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Huile d'olive extra vierge — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .product-page {
+      padding: 40px 0 80px;
+    }
+
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    .product-gallery {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .main-image {
+      width: 100%;
+      aspect-ratio: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .thumbnail {
+      aspect-ratio: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .thumbnail:hover,
+    .thumbnail.active {
+      border-color: var(--terracotta);
+    }
+
+    .product-details h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .shop-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 15px;
+      margin-bottom: 20px;
+      transition: color 0.2s;
+    }
+
+    .shop-link:hover {
+      color: var(--terracotta);
+    }
+
+    .price-section {
+      background: var(--cream-warm);
+      padding: 24px;
+      border-radius: 16px;
+      margin: 24px 0;
+    }
+
+    .price {
+      font-family: 'Fraunces', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin-bottom: 8px;
+    }
+
+    .price-note {
+      font-size: 14px;
+      color: var(--mute);
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .quantity-selector label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quantity-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(26, 23, 21, 0.2);
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .quantity-btn:hover {
+      background: var(--cream-warm);
+    }
+
+    .quantity-value {
+      font-weight: 600;
+      font-size: 16px;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .btn-large {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .product-description {
+      margin: 32px 0;
+    }
+
+    .product-description h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .product-description p {
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .product-specs {
+      list-style: none;
+      margin: 24px 0;
+    }
+
+    .product-specs li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(26, 23, 21, 0.06);
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .product-specs li strong {
+      color: var(--ink);
+    }
+
+    .product-specs li span {
+      color: var(--ink-soft);
+    }
+
+    .reviews-section {
+      margin-top: 60px;
+      padding-top: 60px;
+      border-top: 1px solid rgba(26, 23, 21, 0.08);
+    }
+
+    .review-card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .review-date {
+      font-size: 13px;
+      color: var(--mute);
+    }
+
+    .review-stars {
+      color: var(--saffron);
+    }
+
+    @media (max-width: 968px) {
+      .product-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .product-gallery {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="#">Connexion</a>
+          <a href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PRODUCT PAGE -->
+  <section class="product-page">
+    <div class="container">
+      <div class="product-layout">
+        <!-- GALLERY -->
+        <div class="product-gallery">
+          <div class="main-image" id="mainImage" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&q=80')"></div>
+          <div class="thumbnail-grid">
+            <div class="thumbnail active" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80')" onclick="changeImage(this)"></div>
+            <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200&q=80')" onclick="changeImage(this)"></div>
+            <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1608181831042-c5b3e5d61e8a?w=200&q=80')" onclick="changeImage(this)"></div>
+            <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200&q=80')" onclick="changeImage(this)"></div>
+          </div>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="product-details">
+          <h1>Huile d'olive extra vierge artisanale</h1>
+          
+          <a href="boutique.html?id=1" class="shop-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Épicerie Bennani · Casablanca
+          </a>
+
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+            <div style="color: var(--saffron); font-size: 18px;">★★★★★</div>
+            <span style="font-weight: 600;">4.9</span>
+            <span style="color: var(--mute);">(127 avis)</span>
+          </div>
+
+          <div class="price-section">
+            <div class="price">85 DH</div>
+            <div class="price-note">Prix par litre · Livraison gratuite dès 200 DH</div>
+          </div>
+
+          <div class="quantity-selector">
+            <label>Quantité</label>
+            <div class="quantity-controls">
+              <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+              <span class="quantity-value" id="quantity">1</span>
+              <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-large">Ajouter au panier</button>
+          <button class="btn btn-outline btn-large">Acheter maintenant</button>
+
+          <div class="product-description">
+            <h3>Description</h3>
+            <p>
+              Huile d'olive extra vierge de première pression à froid, produite artisanalement dans notre oliveraie familiale près de Meknès. Récoltée à la main et pressée dans les 24 heures pour préserver tous les arômes et bienfaits.
+            </p>
+            <p>
+              Idéale pour assaisonner vos salades, vos plats méditerranéens ou simplement avec du pain frais. Son goût fruité et légèrement poivré ravira vos papilles.
+            </p>
+
+            <ul class="product-specs">
+              <li>
+                <strong>Origine</strong>
+                <span>Meknès, Maroc</span>
+              </li>
+              <li>
+                <strong>Contenance</strong>
+                <span>1 litre</span>
+              </li>
+              <li>
+                <strong>Type</strong>
+                <span>Extra vierge, première pression à froid</span>
+              </li>
+              <li>
+                <strong>Conservation</strong>
+                <span>À l'abri de la lumière, 18 mois</span>
+              </li>
+              <li>
+                <strong>Livraison</strong>
+                <span>2-3 jours ouvrés</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="reviews-section">
+        <h2 class="section-title" style="margin-bottom: 32px;">Avis clients (127)</h2>
+
+        <div class="review-card">
+          <div class="review-header">
+            <div>
+              <div class="reviewer-name">Fatima Z.</div>
+              <div class="review-date">Il y a 2 jours</div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p>Excellente huile d'olive ! Le goût est authentique et on sent vraiment la qualité. Je recommande vivement pour ceux qui cherchent du vrai produit marocain.</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-header">
+            <div>
+              <div class="reviewer-name">Mohammed A.</div>
+              <div class="review-date">Il y a 1 semaine</div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p>Livraison rapide et produit bien emballé. L'huile est délicieuse, parfaite pour mes salades. Je vais en recommander !</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-header">
+            <div>
+              <div class="reviewer-name">Sarah L.</div>
+              <div class="review-date">Il y a 2 semaines</div>
+            </div>
+            <div class="review-stars">★★★★☆</div>
+          </div>
+          <p>Très bonne huile, goût fruité comme décrit. Juste un peu cher mais la qualité est au rendez-vous.</p>
+        </div>
+      </div>
+
+      <!-- RELATED PRODUCTS -->
+      <div style="margin-top: 80px;">
+        <h2 class="section-title" style="margin-bottom: 32px;">Produits similaires</h2>
+        <div class="products-grid">
+          <!-- Reuse product cards from index -->
+          <a href="produit.html?id=8" class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80')">
+              <button class="favorite-btn" onclick="event.preventDefault()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+            <div class="product-info">
+              <div class="product-shop">Miel du Rif</div>
+              <div class="product-name">Miel de thym pur 500g</div>
+              <div class="product-price">150 DH</div>
+              <div class="product-rating">
+                <span class="star">★</span> 5.0 (178)
+              </div>
+            </div>
+          </a>
+
+          <a href="produit.html?id=9" class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1587049352846-4a222e784acc?w=600&q=80')">
+              <button class="favorite-btn" onclick="event.preventDefault()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+            <div class="product-info">
+              <div class="product-shop">Fromage Atlas</div>
+              <div class="product-name">Fromage de chèvre artisanal</div>
+              <div class="product-price">65 DH</div>
+              <div class="product-rating">
+                <span class="star">★</span> 4.8 (145)
+              </div>
+            </div>
+          </a>
+
+          <a href="produit.html?id=10" class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600&q=80')">
+              <button class="favorite-btn" onclick="event.preventDefault()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+            <div class="product-info">
+              <div class="product-shop">Dattes du Sud</div>
+              <div class="product-name">Dattes Medjool premium 1kg</div>
+              <div class="product-price">95 DH</div>
+              <div class="product-rating">
+                <span class="star">★</span> 4.9 (267)
+              </div>
+            </div>
+          </a>
+
+          <a href="produit.html?id=3" class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80')">
+              <span class="product-badge">Bio</span>
+              <button class="favorite-btn" onclick="event.preventDefault()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </button>
+            </div>
+            <div class="product-info">
+              <div class="product-shop">Argan Bleu</div>
+              <div class="product-name">Huile d'argan cosmétique pure 100ml</div>
+              <div class="product-price">120 DH</div>
+              <div class="product-rating">
+                <span class="star">★</span> 4.8 (234)
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="#">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function changeImage(thumbnail) {
+      const mainImage = document.getElementById('mainImage');
+      const bgImage = thumbnail.style.backgroundImage;
+      mainImage.style.backgroundImage = bgImage;
+      
+      document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+      thumbnail.classList.add('active');
+    }
+
+    let quantity = 1;
+
+    function increaseQuantity() {
+      quantity++;
+      document.getElementById('quantity').textContent = quantity;
+    }
+
+    function decreaseQuantity() {
+      if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantity').textContent = quantity;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toutes les boutiques — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-header {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid rgba(26, 23, 21, 0.06);
+    }
+
+    .page-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 42px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      color: var(--mute);
+      font-size: 16px;
+    }
+
+    .filters-section {
+      padding: 32px 0;
+      background: white;
+      position: sticky;
+      top: 73px;
+      z-index: 50;
+      border-bottom: 1px solid rgba(26, 23, 21, 0.06);
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .filter-select {
+      padding: 10px 16px;
+      border: 1px solid rgba(26, 23, 21, 0.12);
+      border-radius: 100px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+      min-width: 150px;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+
+    .shops-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 40px 0 80px;
+    }
+
+    .shop-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 1px solid rgba(26, 23, 21, 0.04);
+    }
+
+    .shop-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px -20px rgba(26, 23, 21, 0.18);
+    }
+
+    .shop-cover {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .shop-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5));
+    }
+
+    .shop-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: white;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      z-index: 2;
+      color: var(--terracotta);
+    }
+
+    .shop-badge.verified {
+      background: var(--teal);
+      color: white;
+    }
+
+    .shop-logo {
+      position: absolute;
+      bottom: -32px;
+      left: 20px;
+      width: 64px;
+      height: 64px;
+      background: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--terracotta-deep);
+      box-shadow: 0 10px 25px -8px rgba(0,0,0,0.2);
+      z-index: 3;
+      border: 3px solid white;
+    }
+
+    .shop-info {
+      padding: 44px 20px 20px;
+    }
+
+    .shop-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: var(--mute);
+    }
+
+    .shop-location {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .shop-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    .shop-rating .star {
+      color: var(--saffron);
+    }
+
+    .shop-name {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .shop-description {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .shop-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .shop-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: var(--cream-warm);
+      border-radius: 100px;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .shop-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(26, 23, 21, 0.06);
+      font-size: 13px;
+    }
+
+    .shop-products {
+      color: var(--mute);
+    }
+
+    .shop-products strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .visit-btn {
+      color: var(--terracotta);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .shop-card:hover .visit-btn {
+      gap: 10px;
+    }
+
+    .results-count {
+      padding: 24px 0 16px;
+      color: var(--mute);
+      font-size: 14px;
+    }
+
+    @media (max-width: 968px) {
+      .shops-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="#">Connexion</a>
+          <a href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Toutes les boutiques</h1>
+      <p>Découvre les commerçants locaux près de chez toi</p>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-row">
+        <div class="filter-group">
+          <label>Catégorie</label>
+          <select class="filter-select" id="categoryFilter">
+            <option value="all">Toutes les catégories</option>
+            <option value="food">🍽️ Alimentation</option>
+            <option value="fashion">👗 Mode</option>
+            <option value="beauty">💄 Beauté</option>
+            <option value="home">🏠 Maison</option>
+            <option value="art">🎨 Artisanat</option>
+            <option value="jewelry">💎 Bijoux</option>
+            <option value="gifts">🎁 Cadeaux</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Ville</label>
+          <select class="filter-select" id="cityFilter">
+            <option value="all">Toutes les villes</option>
+            <option value="casablanca">Casablanca</option>
+            <option value="rabat">Rabat</option>
+            <option value="marrakech">Marrakech</option>
+            <option value="fes">Fès</option>
+            <option value="tanger">Tanger</option>
+            <option value="agadir">Agadir</option>
+            <option value="meknes">Meknès</option>
+            <option value="oujda">Oujda</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Trier par</label>
+          <select class="filter-select" id="sortFilter">
+            <option value="popular">Les plus populaires</option>
+            <option value="recent">Nouveautés</option>
+            <option value="rating">Mieux notées</option>
+            <option value="products">Plus de produits</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOPS GRID -->
+  <section>
+    <div class="container">
+      <div class="results-count">
+        <strong>2,400</strong> boutiques trouvées
+      </div>
+
+      <div class="shops-grid">
+        <!-- Shop 1 -->
+        <a href="boutique.html?id=1" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">EB</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Casablanca, Maârif</div>
+              <div class="shop-rating"><span class="star">★</span> 4.9 (284)</div>
+            </div>
+            <h3 class="shop-name">Épicerie Bennani</h3>
+            <p class="shop-description">Épicerie de quartier depuis 1985. Produits frais, fruits et légumes, produits d'épicerie fine et produits du terroir marocain.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Alimentation</span>
+              <span class="shop-tag">Livraison rapide</span>
+              <span class="shop-tag">Bio</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>127</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 2 -->
+        <a href="boutique.html?id=2" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1610055568854-43b9b3a4eed2?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">AZ</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Fès, Médina</div>
+              <div class="shop-rating"><span class="star">★</span> 5.0 (189)</div>
+            </div>
+            <h3 class="shop-name">Atelier Zellige</h3>
+            <p class="shop-description">Carreaux artisanaux et mosaïques sur-mesure, fabriqués main par la famille Bennani depuis 4 générations.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Artisanat</span>
+              <span class="shop-tag">Sur-mesure</span>
+              <span class="shop-tag">Export</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>89</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 3 -->
+        <a href="boutique.html?id=3" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&q=80')">
+            <span class="shop-badge">Nouveau</span>
+            <div class="shop-logo">AB</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Essaouira</div>
+              <div class="shop-rating"><span class="star">★</span> 5.0 (48)</div>
+            </div>
+            <h3 class="shop-name">Argan Bleu</h3>
+            <p class="shop-description">Coopérative féminine — huile d'argan pressée à froid, savons naturels et cosmétiques bio certifiés.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Beauté</span>
+              <span class="shop-tag">Bio</span>
+              <span class="shop-tag">Coopérative</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>34</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 4 -->
+        <a href="boutique.html?id=4" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1609001489147-6c1c8f5f0e72?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">MK</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Fès, Tanneries</div>
+              <div class="shop-rating"><span class="star">★</span> 4.8 (412)</div>
+            </div>
+            <h3 class="shop-name">Maison Khalil</h3>
+            <p class="shop-description">Maroquinerie de Fès — sacs, poufs et accessoires en cuir véritable tannés à l'ancienne au cœur de la médina.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Mode</span>
+              <span class="shop-tag">Cuir véritable</span>
+              <span class="shop-tag">Fait main</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>156</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 5 -->
+        <a href="boutique.html?id=5" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1604423481675-d96cc5b87bd9?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">TB</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Atlas, Aït Bouguemez</div>
+              <div class="shop-rating"><span class="star">★</span> 4.9 (167)</div>
+            </div>
+            <h3 class="shop-name">Tapis Beni</h3>
+            <p class="shop-description">Tapis berbères authentiques tissés à la main par les femmes des villages de l'Atlas. Pièces uniques.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Maison</span>
+              <span class="shop-tag">Pièce unique</span>
+              <span class="shop-tag">Équitable</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>52</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 6 -->
+        <a href="boutique.html?id=6" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1606914469633-ddd62ec10ce1?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">SF</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Safi</div>
+              <div class="shop-rating"><span class="star">★</span> 4.7 (96)</div>
+            </div>
+            <h3 class="shop-name">Safi Faïence</h3>
+            <p class="shop-description">Poterie et céramique émaillée de Safi — vaisselle, tajines et objets déco peints à la main.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Maison</span>
+              <span class="shop-tag">Céramique</span>
+              <span class="shop-tag">Peint main</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>68</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 7 -->
+        <a href="boutique.html?id=7" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1610018556010-6a11691bc905?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">LK</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Casablanca, Maârif</div>
+              <div class="shop-rating"><span class="star">★</span> 4.9 (521)</div>
+            </div>
+            <h3 class="shop-name">Lalla Kenza</h3>
+            <p class="shop-description">Maison de caftans et tenues traditionnelles modernes pour mariées, créations exclusives signées Kenza Ait Si.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Mode</span>
+              <span class="shop-tag">Caftan</span>
+              <span class="shop-tag">Sur-mesure</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>43</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 8 -->
+        <a href="boutique.html?id=8" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80')">
+            <span class="shop-badge">Nouveau</span>
+            <div class="shop-logo">MR</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Chefchaouen</div>
+              <div class="shop-rating"><span class="star">★</span> 5.0 (78)</div>
+            </div>
+            <h3 class="shop-name">Miel du Rif</h3>
+            <p class="shop-description">Miel pur et naturel récolté dans les montagnes du Rif. Thym, eucalyptus, fleurs sauvages.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Alimentation</span>
+              <span class="shop-tag">Bio</span>
+              <span class="shop-tag">Naturel</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>12</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Shop 9 -->
+        <a href="boutique.html?id=9" class="shop-card">
+          <div class="shop-cover" style="background-image: url('https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=800&q=80')">
+            <span class="shop-badge verified">✓ Vérifié</span>
+            <div class="shop-logo">BF</div>
+          </div>
+          <div class="shop-info">
+            <div class="shop-meta">
+              <div class="shop-location">📍 Fès, Médina</div>
+              <div class="shop-rating"><span class="star">★</span> 4.8 (234)</div>
+            </div>
+            <h3 class="shop-name">Babouches Fassi</h3>
+            <p class="shop-description">Babouches traditionnelles en cuir brodées main. Modèles pour hommes, femmes et enfants.</p>
+            <div class="shop-tags">
+              <span class="shop-tag">Mode</span>
+              <span class="shop-tag">Cuir</span>
+              <span class="shop-tag">Broderie</span>
+            </div>
+            <div class="shop-footer">
+              <div class="shop-products"><strong>87</strong> produits</div>
+              <div class="visit-btn">Visiter →</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="#">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Filter functionality (basic - will be replaced with real backend)
+    const categoryFilter = document.getElementById('categoryFilter');
+    const cityFilter = document.getElementById('cityFilter');
+    const sortFilter = document.getElementById('sortFilter');
+
+    function updateFilters() {
+      const category = categoryFilter.value;
+      const city = cityFilter.value;
+      const sort = sortFilter.value;
+      
+      console.log('Filters:', { category, city, sort });
+      // TODO: Implement actual filtering when backend is ready
+    }
+
+    categoryFilter.addEventListener('change', updateFilters);
+    cityFilter.addEventListener('change', updateFilters);
+    sortFilter.addEventListener('change', updateFilters);
+  </script>
+</body>
+</html>

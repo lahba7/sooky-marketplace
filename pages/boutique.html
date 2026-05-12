@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Épicerie Bennani — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .shop-header {
+      background: white;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(26, 23, 21, 0.06);
+    }
+
+    .shop-header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .shop-logo-big {
+      width: 120px;
+      height: 120px;
+      background: var(--terracotta);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+
+    .shop-info h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 42px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .shop-meta {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--mute);
+      flex-wrap: wrap;
+    }
+
+    .shop-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shop-description {
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+
+    .shop-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 6px 14px;
+      background: var(--cream-warm);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    .shop-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: var(--cream-warm);
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .stat-box-num {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--terracotta);
+    }
+
+    .stat-box-label {
+      font-size: 12px;
+      color: var(--mute);
+      margin-top: 4px;
+    }
+
+    .shop-tabs {
+      background: white;
+      border-bottom: 1px solid rgba(26, 23, 21, 0.06);
+      position: sticky;
+      top: 73px;
+      z-index: 50;
+    }
+
+    .tabs-list {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .tabs-list li {
+      padding: 16px 0;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--mute);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tabs-list li.active {
+      color: var(--terracotta);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .tabs-list li:hover {
+      color: var(--ink);
+    }
+
+    .shop-content {
+      padding: 40px 0 80px;
+    }
+
+    @media (max-width: 968px) {
+      .shop-header-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .shop-logo-big {
+        margin: 0 auto;
+      }
+
+      .shop-actions {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="#">Connexion</a>
+          <a href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SHOP HEADER -->
+  <section class="shop-header">
+    <div class="container">
+      <div class="shop-header-inner">
+        <div class="shop-logo-big">EB</div>
+        
+        <div class="shop-info">
+          <h1>Épicerie Bennani</h1>
+          <div class="shop-meta">
+            <span>📍 Casablanca, Maârif</span>
+            <span>⭐ 4.9 (284 avis)</span>
+            <span>🕐 Ouvert · Ferme à 22h</span>
+            <span>✓ Boutique vérifiée</span>
+          </div>
+          <p class="shop-description">
+            Épicerie de quartier depuis 1985. Produits frais, fruits et légumes, produits d'épicerie fine et produits du terroir marocain. Livraison gratuite dans un rayon de 3km.
+          </p>
+          <div class="shop-tags">
+            <span class="tag">🚚 Livraison rapide</span>
+            <span class="tag">💳 Paiement en ligne</span>
+            <span class="tag">🌿 Produits bio</span>
+            <span class="tag">🇲🇦 Produits locaux</span>
+          </div>
+        </div>
+
+        <div class="shop-actions">
+          <div class="stat-box">
+            <div class="stat-box-num">30 min</div>
+            <div class="stat-box-label">Livraison moyenne</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num">127</div>
+            <div class="stat-box-label">Produits</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num">2.4k</div>
+            <div class="stat-box-label">Commandes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <section class="shop-tabs">
+    <div class="container">
+      <ul class="tabs-list">
+        <li class="active">Produits</li>
+        <li>À propos</li>
+        <li>Avis (284)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="shop-content">
+    <div class="container">
+      <h2 class="section-title" style="margin-bottom: 32px;">Nos produits</h2>
+      
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <a href="produit.html?id=1" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=80')">
+            <span class="product-badge">Promo</span>
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Huile d'olive extra vierge artisanale</div>
+            <div class="product-price">85 DH</div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.9 (127)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 2 -->
+        <a href="produit.html?id=2" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=600&q=80')">
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Tomates fraîches du jour</div>
+            <div class="product-price">12 DH <span style="font-size: 14px; color: var(--mute);">/kg</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.8 (89)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 3 -->
+        <a href="produit.html?id=3" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80')">
+            <span class="product-badge">Bio</span>
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Miel de montagne pur</div>
+            <div class="product-price">120 DH <span style="font-size: 14px; color: var(--mute);">/500g</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 5.0 (156)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 4 -->
+        <a href="produit.html?id=4" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1568471173238-64ed8e7e9b0f?w=600&q=80')">
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Pain beldi frais du jour</div>
+            <div class="product-price">5 DH <span style="font-size: 14px; color: var(--mute);">/pièce</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.9 (203)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 5 -->
+        <a href="produit.html?id=5" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1587049352846-4a222e784acc?w=600&q=80')">
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Fromage de chèvre artisanal</div>
+            <div class="product-price">45 DH <span style="font-size: 14px; color: var(--mute);">/250g</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.8 (134)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 6 -->
+        <a href="produit.html?id=6" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610832745705-1f3b0e4e0f6f?w=600&q=80')">
+            <span class="product-badge">Nouveau</span>
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Confiture d'abricot maison</div>
+            <div class="product-price">35 DH <span style="font-size: 14px; color: var(--mute);">/pot</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.9 (67)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 7 -->
+        <a href="produit.html?id=7" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1587334207-6e5e8f3c2e1e?w=600&q=80')">
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Œufs fermiers bio</div>
+            <div class="product-price">25 DH <span style="font-size: 14px; color: var(--mute);">/6 pièces</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 5.0 (198)
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 8 -->
+        <a href="produit.html?id=8" class="product-card">
+          <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600&q=80')">
+            <button class="favorite-btn" onclick="event.preventDefault()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8553D" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="product-info">
+            <div class="product-shop">Épicerie Bennani</div>
+            <div class="product-name">Dattes Medjool premium</div>
+            <div class="product-price">60 DH <span style="font-size: 14px; color: var(--mute);">/kg</span></div>
+            <div class="product-rating">
+              <span class="star">★</span> 4.9 (245)
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="#">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
