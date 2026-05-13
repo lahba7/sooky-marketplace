@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alimentation — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .category-hero {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .category-hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .category-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .category-hero p {
+      font-size: 20px;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .filters-sidebar {
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .filter-section {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .filter-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-option:hover {
+      color: var(--primary);
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .filter-option label {
+      cursor: pointer;
+      flex: 1;
+      font-size: 15px;
+    }
+
+    .filter-count {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .price-range {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .price-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .price-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .rating-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .rating-filter:hover {
+      color: var(--primary);
+    }
+
+    .rating-stars {
+      color: var(--warning);
+      font-size: 16px;
+    }
+
+    .clear-filters {
+      width: 100%;
+      padding: 12px;
+      background: var(--bg-secondary);
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
+    }
+
+    .clear-filters:hover {
+      background: var(--border);
+    }
+
+    .content-area {
+      padding: 40px 0 80px;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 40px;
+    }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .results-info {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .results-info strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .sort-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sort-dropdown label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .sort-dropdown select {
+      padding: 10px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sort-dropdown select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .active-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .filter-tag button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+
+    .filter-tag button:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 968px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-sidebar {
+        position: static;
+      }
+
+      .category-hero h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CATEGORY HERO -->
+  <section class="category-hero">
+    <div class="container">
+      <span class="category-icon">🍽️</span>
+      <h1>Alimentation</h1>
+      <p>Découvre les meilleurs produits alimentaires artisanaux et locaux du Maroc</p>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="content-area">
+    <div class="container">
+      <div class="layout-grid">
+        <!-- FILTERS SIDEBAR -->
+        <aside class="filters-sidebar">
+          <h3 style="font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 24px;">Filtres</h3>
+
+          <!-- Price Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Prix</div>
+            <div class="price-range">
+              <input type="number" class="price-input" placeholder="Min" value="">
+              <span>—</span>
+              <input type="number" class="price-input" placeholder="Max" value="">
+            </div>
+            <div style="margin-top: 16px;">
+              <div class="filter-option">
+                <input type="checkbox" id="price1">
+                <label for="price1">Moins de 50 DH</label>
+                <span class="filter-count">(234)</span>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price2">
+                <label for="price2">50 - 100 DH</label>
+                <span class="filter-count">(456)</span>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price3">
+                <label for="price3">100 - 200 DH</label>
+                <span class="filter-count">(189)</span>
+              </div>
+              <div class="filter-option">
+                <input type="checkbox" id="price4">
+                <label for="price4">Plus de 200 DH</label>
+                <span class="filter-count">(67)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- City Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Ville</div>
+            <div class="filter-option">
+              <input type="checkbox" id="city1">
+              <label for="city1">Casablanca</label>
+              <span class="filter-count">(342)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="city2">
+              <label for="city2">Rabat</label>
+              <span class="filter-count">(198)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="city3">
+              <label for="city3">Marrakech</label>
+              <span class="filter-count">(156)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="city4">
+              <label for="city4">Fès</label>
+              <span class="filter-count">(134)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="city5">
+              <label for="city5">Tanger</label>
+              <span class="filter-count">(89)</span>
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Note</div>
+            <div class="rating-filter">
+              <input type="radio" name="rating" id="rating5">
+              <label for="rating5">
+                <span class="rating-stars">★★★★★</span> 5 étoiles
+              </label>
+              <span class="filter-count">(234)</span>
+            </div>
+            <div class="rating-filter">
+              <input type="radio" name="rating" id="rating4">
+              <label for="rating4">
+                <span class="rating-stars">★★★★</span> 4+ étoiles
+              </label>
+              <span class="filter-count">(567)</span>
+            </div>
+            <div class="rating-filter">
+              <input type="radio" name="rating" id="rating3">
+              <label for="rating3">
+                <span class="rating-stars">★★★</span> 3+ étoiles
+              </label>
+              <span class="filter-count">(789)</span>
+            </div>
+          </div>
+
+          <!-- Type Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Type de produit</div>
+            <div class="filter-option">
+              <input type="checkbox" id="type1">
+              <label for="type1">Huiles & Condiments</label>
+              <span class="filter-count">(145)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="type2">
+              <label for="type2">Miel & Confitures</label>
+              <span class="filter-count">(98)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="type3">
+              <label for="type3">Fruits secs & Dattes</label>
+              <span class="filter-count">(167)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="type4">
+              <label for="type4">Fromages & Produits laitiers</label>
+              <span class="filter-count">(76)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="type5">
+              <label for="type5">Épices & Herbes</label>
+              <span class="filter-count">(123)</span>
+            </div>
+          </div>
+
+          <!-- Labels Filter -->
+          <div class="filter-section">
+            <div class="filter-title">Labels</div>
+            <div class="filter-option">
+              <input type="checkbox" id="label1">
+              <label for="label1">🌿 Bio</label>
+              <span class="filter-count">(234)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="label2">
+              <label for="label2">🇲🇦 Produit local</label>
+              <span class="filter-count">(567)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="label3">
+              <label for="label3">✋ Fait main</label>
+              <span class="filter-count">(345)</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="label4">
+              <label for="label4">🚚 Livraison rapide</label>
+              <span class="filter-count">(456)</span>
+            </div>
+          </div>
+
+          <button class="clear-filters">Effacer tous les filtres</button>
+        </aside>
+
+        <!-- PRODUCTS AREA -->
+        <div>
+          <!-- Active Filters -->
+          <div class="active-filters">
+            <div class="filter-tag">
+              Bio
+              <button>×</button>
+            </div>
+            <div class="filter-tag">
+              Casablanca
+              <button>×</button>
+            </div>
+            <div class="filter-tag">
+              50 - 100 DH
+              <button>×</button>
+            </div>
+          </div>
+
+          <!-- Products Header -->
+          <div class="products-header">
+            <div class="results-info">
+              <strong>946</strong> produits trouvés
+            </div>
+            <div class="sort-dropdown">
+              <label>Trier par</label>
+              <select>
+                <option value="popular">Les plus populaires</option>
+                <option value="recent">Nouveautés</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="rating">Mieux notés</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div class="products-grid">
+            <!-- Reuse product cards from index.html -->
+            <a href="produit.html?id=1" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=80')">
+                <span class="product-badge">Promo</span>
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Épicerie Bennani</div>
+                <div class="product-name">Huile d'olive extra vierge artisanale</div>
+                <div class="product-price">85 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.9 (127)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=8" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80')">
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Miel du Rif</div>
+                <div class="product-name">Miel de thym pur 500g</div>
+                <div class="product-price">150 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 5.0 (178)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=9" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1587049352846-4a222e784acc?w=600&q=80')">
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Fromage Atlas</div>
+                <div class="product-name">Fromage de chèvre artisanal</div>
+                <div class="product-price">65 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.8 (145)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=10" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600&q=80')">
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Dattes du Sud</div>
+                <div class="product-name">Dattes Medjool premium 1kg</div>
+                <div class="product-price">95 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.9 (267)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=3" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80')">
+                <span class="product-badge">Bio</span>
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Argan Bleu</div>
+                <div class="product-name">Huile d'argan cosmétique pure 100ml</div>
+                <div class="product-price">120 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.8 (234)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=11" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=600&q=80')">
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Babouches Fassi</div>
+                <div class="product-name">Babouches en cuir brodées</div>
+                <div class="product-price">320 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.7 (112)
+                </div>
+              </div>
+            </a>
+
+            <a href="produit.html?id=12" class="product-card">
+              <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1582582494705-f8ce0b0c24f0?w=600&q=80')">
+                <button class="favorite-btn" onclick="event.preventDefault()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="product-info">
+                <div class="product-shop">Poterie Safi</div>
+                <div class="product-name">Vase en céramique émaillée</div>
+                <div class="product-price">180 DH</div>
+                <div class="product-rating">
+                  <span class="star">★</span> 4.8 (89)
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="categories.html">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
