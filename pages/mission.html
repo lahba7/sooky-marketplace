@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notre mission — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .mission-hero {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 120px 0;
+      text-align: center;
+    }
+
+    .mission-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 64px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .mission-hero p {
+      font-size: 24px;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .mission-section {
+      padding: 100px 0;
+    }
+
+    .mission-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mission-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: var(--text-primary);
+    }
+
+    .mission-section p {
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .values-section {
+      background: var(--bg-secondary);
+      padding: 100px 0;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .value-card {
+      background: white;
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .value-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    .value-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .value-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .stats-section {
+      padding: 100px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .team-section {
+      background: var(--bg-secondary);
+      padding: 100px 0;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .team-photo {
+      width: 100%;
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .team-info {
+      padding: 32px;
+      text-align: center;
+    }
+
+    .team-name {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .team-role {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .team-bio {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .cta-section {
+      background: var(--gradient-accent);
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .cta-section p {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section .btn {
+      background: white;
+      color: var(--primary);
+      font-size: 18px;
+      padding: 18px 40px;
+    }
+
+    @media (max-width: 968px) {
+      .mission-hero h1 {
+        font-size: 42px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="mission-hero">
+    <div class="container">
+      <h1>Notre mission</h1>
+      <p>Connecter les petits commerçants marocains avec leurs clients et démocratiser le commerce en ligne</p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-content">
+        <h2>Pourquoi Sooky existe ?</h2>
+        <p>
+          Au Maroc, des milliers de petits commerçants talentueux créent des produits exceptionnels mais peinent à les faire connaître au-delà de leur quartier. Parallèlement, les consommateurs cherchent des produits authentiques, locaux et de qualité.
+        </p>
+        <p>
+          Sooky a été créé pour combler ce fossé. Notre plateforme permet aux artisans, épiciers, créateurs et petits entrepreneurs de digitaliser leur activité simplement, sans compétences techniques, et de toucher une clientèle plus large.
+        </p>
+        <p>
+          Nous croyons que chaque commerçant mérite d'avoir sa place dans l'économie numérique, et que chaque client mérite d'accéder aux trésors cachés du commerce local marocain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Nos valeurs</h2>
+      
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>Proximité</h3>
+          <p>Nous privilégions les relations humaines et la proximité avec nos commerçants et clients. Chaque interaction compte.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🌱</div>
+          <h3>Authenticité</h3>
+          <p>Nous mettons en avant les produits authentiques, artisanaux et locaux qui font la richesse du patrimoine marocain.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">⚡</div>
+          <h3>Simplicité</h3>
+          <p>Nous rendons le commerce en ligne accessible à tous, même sans compétences techniques, avec des outils simples et intuitifs.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🎯</div>
+          <h3>Transparence</h3>
+          <p>Pas de frais cachés, pas de conditions complexes. Nous croyons en une relation de confiance basée sur la transparence.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🚀</div>
+          <h3>Innovation</h3>
+          <p>Nous innovons constamment pour offrir les meilleures solutions technologiques adaptées au marché marocain.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🌍</div>
+          <h3>Impact social</h3>
+          <p>Nous contribuons au développement économique local en aidant les petits commerçants à prospérer dans l'ère numérique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Notre impact</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">2,400+</div>
+          <div class="stat-label">Boutiques actives</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50,000+</div>
+          <div class="stat-label">Clients satisfaits</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Villes couvertes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Satisfaction client</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Notre équipe</h2>
+      
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80')"></div>
+          <div class="team-info">
+            <div class="team-name">Youssef Alami</div>
+            <div class="team-role">CEO & Fondateur</div>
+            <div class="team-bio">Entrepreneur passionné par le commerce local et la technologie. 10 ans d'expérience dans l'e-commerce.</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&q=80')"></div>
+          <div class="team-info">
+            <div class="team-name">Fatima Bennani</div>
+            <div class="team-role">CTO</div>
+            <div class="team-bio">Ingénieure logiciel spécialisée dans les plateformes e-commerce. Diplômée de l'ENSIAS.</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80')"></div>
+          <div class="team-info">
+            <div class="team-name">Ahmed Tazi</div>
+            <div class="team-role">Directeur Commercial</div>
+            <div class="team-bio">Expert en développement commercial avec une connaissance approfondie du marché marocain.</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80')"></div>
+          <div class="team-info">
+            <div class="team-name">Leila Fassi</div>
+            <div class="team-role">Responsable Marketing</div>
+            <div class="team-bio">Spécialiste du marketing digital et de la communication, passionnée par l'artisanat marocain.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Rejoignez notre mission</h2>
+      <p>Ensemble, construisons l'avenir du commerce local au Maroc</p>
+      <a href="creer-boutique.html" class="btn">Créer ma boutique</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="categories.html">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="guide-vendeur.html">Guide du vendeur</a></li>
+            <li><a href="success-stories.html">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="mission.html">Notre mission</a></li>
+            <li><a href="aide.html">Aide & FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cgu.html">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

@@ -340,6 +340,16 @@
             <div class="price-note">Prix par litre · Livraison gratuite dès 200 DH</div>
           </div>
 
+          <!-- VARIANTES -->
+          <div style="margin: 24px 0;">
+            <label style="font-weight: 600; font-size: 14px; display: block; margin-bottom: 12px;">Contenance</label>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="variant-btn active" onclick="selectVariant(this, '500ml', 65)" style="padding: 12px 20px; border: 2px solid var(--primary); background: var(--primary); color: white; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s;">500ml - 65 DH</button>
+              <button class="variant-btn" onclick="selectVariant(this, '1L', 85)" style="padding: 12px 20px; border: 2px solid var(--border); background: white; color: var(--text-primary); border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s;">1L - 85 DH</button>
+              <button class="variant-btn" onclick="selectVariant(this, '2L', 150)" style="padding: 12px 20px; border: 2px solid var(--border); background: white; color: var(--text-primary); border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s;">2L - 150 DH</button>
+            </div>
+          </div>
+
           <div class="quantity-selector">
             <label>Quantité</label>
             <div class="quantity-controls">
@@ -423,6 +433,47 @@
           </div>
           <p>Très bonne huile, goût fruité comme décrit. Juste un peu cher mais la qualité est au rendez-vous.</p>
         </div>
+      </div>
+
+      <!-- QUESTIONS & RÉPONSES -->
+      <div class="reviews-section" style="border-top: 1px solid rgba(26, 23, 21, 0.08); padding-top: 60px; margin-top: 60px;">
+        <h2 class="section-title" style="margin-bottom: 32px;">Questions & Réponses</h2>
+        
+        <div class="review-card" style="background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2);">
+          <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;">Q</span>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; margin-bottom: 8px;">Est-ce que l'huile est bio ?</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Par Ahmed K. • Il y a 3 jours</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(99, 102, 241, 0.1);">
+            <span style="background: var(--success); color: white; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;">R</span>
+            <div style="flex: 1;">
+              <div style="margin-bottom: 8px;">Oui, notre huile est 100% bio et certifiée. Nous n'utilisons aucun pesticide dans notre oliveraie.</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Par Épicerie Bennani • Il y a 2 jours</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;">Q</span>
+            <div style="flex: 1;">
+              <div style="font-weight: 600; margin-bottom: 8px;">Quelle est la date de péremption ?</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Par Leila M. • Il y a 1 semaine</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+            <span style="background: var(--success); color: white; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700;">R</span>
+            <div style="flex: 1;">
+              <div style="margin-bottom: 8px;">18 mois à partir de la date de production. Toutes nos bouteilles sont fraîchement pressées.</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Par Épicerie Bennani • Il y a 1 semaine</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline" style="width: 100%; padding: 14px; margin-top: 24px;">Poser une question</button>
       </div>
 
       <!-- RELATED PRODUCTS -->
@@ -549,7 +600,32 @@
     </div>
   </footer>
 
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dynamic-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/favorites.js"></script>
+  <script src="../js/reviews.js"></script>
+  <script src="../js/chat.js"></script>
+  <script src="../js/notifications.js"></script>
   <script>
+    let currentPrice = 85;
+    
+    function selectVariant(btn, size, price) {
+      document.querySelectorAll('.variant-btn').forEach(b => {
+        b.style.background = 'white';
+        b.style.color = 'var(--text-primary)';
+        b.style.borderColor = 'var(--border)';
+      });
+      btn.style.background = 'var(--primary)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--primary)';
+      currentPrice = price;
+      document.querySelector('.price').textContent = price + ' DH';
+    }
+    
     function changeImage(thumbnail) {
       const mainImage = document.getElementById('mainImage');
       const bgImage = thumbnail.style.backgroundImage;

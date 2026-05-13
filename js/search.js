@@ -107,6 +107,24 @@ function createSuggestionsContainer(input) {
 function performSearch(query, container) {
   const lowerQuery = query.toLowerCase();
   
+  // Utiliser l'API dynamique si disponible
+  if (window.performDynamicSearch) {
+    window.performDynamicSearch(query).then(results => {
+      displaySuggestions(results.products || [], results.shops || [], container, query);
+    }).catch(error => {
+      console.error('Erreur API dynamique:', error);
+      // Fallback sur recherche statique
+      performStaticSearch(query, container);
+    });
+  } else {
+    // Fallback sur recherche statique
+    performStaticSearch(query, container);
+  }
+}
+
+function performStaticSearch(query, container) {
+  const lowerQuery = query.toLowerCase();
+  
   // Rechercher dans les produits
   const productResults = productsDatabase.filter(product => 
     product.name.toLowerCase().includes(lowerQuery) ||

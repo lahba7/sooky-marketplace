@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aide & FAQ — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .help-hero {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .help-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .help-hero p {
+      font-size: 20px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .search-help {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-help input {
+      width: 100%;
+      padding: 16px 24px 16px 60px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .search-help .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .help-categories {
+      padding: 80px 0;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .category-card {
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .category-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .category-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .category-card p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .category-count {
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .faq-section {
+      background: var(--bg-secondary);
+      padding: 80px 0;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-search {
+      margin-bottom: 40px;
+    }
+
+    .faq-search input {
+      width: 100%;
+      padding: 16px 24px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .faq-search input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .faq-categories {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .faq-category-btn {
+      padding: 12px 24px;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .faq-category-btn.active,
+    .faq-category-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .faq-question {
+      padding: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text-primary);
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: var(--bg-secondary);
+    }
+
+    .faq-toggle {
+      font-size: 20px;
+      color: var(--primary);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 24px 24px;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .contact-section {
+      padding: 80px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .contact-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .contact-card .btn {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .help-hero h1 {
+        font-size: 36px;
+      }
+
+      .faq-categories {
+        justify-content: center;
+      }
+
+      .faq-category-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="help-hero">
+    <div class="container">
+      <h1>Centre d'aide</h1>
+      <p>Trouvez rapidement les réponses à vos questions</p>
+      <div class="search-help">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input type="text" placeholder="Rechercher dans l'aide..." id="help-search">
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="help-categories">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Comment pouvons-nous vous aider ?</h2>
+      
+      <div class="categories-grid">
+        <div class="category-card" onclick="showCategory('acheteur')">
+          <div class="category-icon">🛒</div>
+          <h3>Acheter sur Sooky</h3>
+          <p>Commandes, paiements, livraisons</p>
+          <div class="category-count">12 articles</div>
+        </div>
+
+        <div class="category-card" onclick="showCategory('vendeur')">
+          <div class="category-icon">🏪</div>
+          <h3>Vendre sur Sooky</h3>
+          <p>Créer sa boutique, gérer ses produits</p>
+          <div class="category-count">15 articles</div>
+        </div>
+
+        <div class="category-card" onclick="showCategory('compte')">
+          <div class="category-icon">👤</div>
+          <h3>Mon compte</h3>
+          <p>Inscription, profil, sécurité</p>
+          <div class="category-count">8 articles</div>
+        </div>
+
+        <div class="category-card" onclick="showCategory('paiement')">
+          <div class="category-icon">💳</div>
+          <h3>Paiements</h3>
+          <p>Modes de paiement, facturation</p>
+          <div class="category-count">10 articles</div>
+        </div>
+
+        <div class="category-card" onclick="showCategory('livraison')">
+          <div class="category-icon">🚚</div>
+          <h3>Livraison</h3>
+          <p>Délais, suivi, problèmes</p>
+          <div class="category-count">9 articles</div>
+        </div>
+
+        <div class="category-card" onclick="showCategory('technique')">
+          <div class="category-icon">⚙️</div>
+          <h3>Problèmes techniques</h3>
+          <p>Bugs, connexion, navigation</p>
+          <div class="category-count">6 articles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Questions fréquentes</h2>
+        
+        <div class="faq-search">
+          <input type="text" placeholder="Rechercher une question..." id="faq-search">
+        </div>
+
+        <div class="faq-categories">
+          <button class="faq-category-btn active" onclick="filterFAQ('tous')">Tous</button>
+          <button class="faq-category-btn" onclick="filterFAQ('acheteur')">Acheteur</button>
+          <button class="faq-category-btn" onclick="filterFAQ('vendeur')">Vendeur</button>
+          <button class="faq-category-btn" onclick="filterFAQ('paiement')">Paiement</button>
+          <button class="faq-category-btn" onclick="filterFAQ('livraison')">Livraison</button>
+        </div>
+
+        <div class="faq-list" id="faq-list">
+          <!-- FAQ items will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Besoin d'aide supplémentaire ?</h2>
+      <p style="text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px;">Notre équipe est là pour vous aider</p>
+      
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h3>Chat en direct</h3>
+          <p>Discutez avec notre équipe support en temps réel</p>
+          <button class="btn btn-primary">Démarrer le chat</button>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email</h3>
+          <p>Envoyez-nous un email, nous répondons sous 24h</p>
+          <a href="mailto:support@sooky.ma" class="btn btn-outline">support@sooky.ma</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">📱</div>
+          <h3>WhatsApp</h3>
+          <p>Contactez-nous sur WhatsApp pour une aide rapide</p>
+          <a href="https://wa.me/212600000000" class="btn btn-outline">+212 6 00 00 00 00</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="categories.html">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="guide-vendeur.html">Guide du vendeur</a></li>
+            <li><a href="success-stories.html">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="mission.html">Notre mission</a></li>
+            <li><a href="aide.html">Aide & FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cgu.html">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/notifications.js"></script>
+  <script>
+    // FAQ Data
+    const faqData = [
+      {
+        category: 'acheteur',
+        question: 'Comment passer une commande sur Sooky ?',
+        answer: 'Pour passer une commande, ajoutez les produits à votre panier, cliquez sur "Finaliser ma commande", remplissez vos informations de livraison et choisissez votre mode de paiement.'
+      },
+      {
+        category: 'acheteur',
+        question: 'Puis-je modifier ou annuler ma commande ?',
+        answer: 'Vous pouvez modifier ou annuler votre commande dans les 2 heures suivant la validation, avant que le vendeur ne commence la préparation.'
+      },
+      {
+        category: 'vendeur',
+        question: 'Comment créer ma boutique sur Sooky ?',
+        answer: 'Cliquez sur "Vendre sur Sooky", puis "Créer ma boutique". Suivez les étapes : informations de base, ajout de visuels, et finalisation. Votre boutique sera active immédiatement.'
+      },
+      {
+        category: 'vendeur',
+        question: 'Quels sont les frais pour vendre sur Sooky ?',
+        answer: 'Sooky prend une commission de 3% sur chaque vente. Pas de frais d\'inscription, pas d\'abonnement mensuel. Vous ne payez que quand vous vendez.'
+      },
+      {
+        category: 'paiement',
+        question: 'Quels modes de paiement acceptez-vous ?',
+        answer: 'Nous acceptons les cartes bancaires (Visa, Mastercard), PayPal, le paiement à la livraison et les virements bancaires.'
+      },
+      {
+        category: 'paiement',
+        question: 'Le paiement en ligne est-il sécurisé ?',
+        answer: 'Oui, tous les paiements sont sécurisés par cryptage SSL et traités par des partenaires certifiés PCI DSS comme CMI et PayPal.'
+      },
+      {
+        category: 'livraison',
+        question: 'Quels sont les délais de livraison ?',
+        answer: 'Les délais varient selon le vendeur et votre ville. En général : 1-3 jours pour les grandes villes, 3-7 jours pour les autres régions.'
+      },
+      {
+        category: 'livraison',
+        question: 'Comment suivre ma commande ?',
+        answer: 'Vous recevez un numéro de suivi par email et SMS. Vous pouvez aussi suivre votre commande dans votre espace client sur Sooky.'
+      },
+      {
+        category: 'compte',
+        question: 'Comment créer un compte sur Sooky ?',
+        answer: 'Cliquez sur "Connexion" puis "Créer un compte". Remplissez vos informations et confirmez votre email. Votre compte sera activé immédiatement.'
+      },
+      {
+        category: 'compte',
+        question: 'J\'ai oublié mon mot de passe, que faire ?',
+        answer: 'Cliquez sur "Mot de passe oublié" sur la page de connexion. Vous recevrez un email pour réinitialiser votre mot de passe.'
+      }
+    ];
+
+    // Initialize FAQ
+    function initializeFAQ() {
+      displayFAQ(faqData);
+    }
+
+    function displayFAQ(faqs) {
+      const faqList = document.getElementById('faq-list');
+      faqList.innerHTML = '';
+
+      faqs.forEach((faq, index) => {
+        const faqItem = document.createElement('div');
+        faqItem.className = 'faq-item';
+        faqItem.innerHTML = `
+          <div class="faq-question" onclick="toggleFAQ(${index})">
+            <span>${faq.question}</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>${faq.answer}</p>
+          </div>
+        `;
+        faqList.appendChild(faqItem);
+      });
+    }
+
+    function toggleFAQ(index) {
+      const faqItems = document.querySelectorAll('.faq-item');
+      const item = faqItems[index];
+      
+      // Close all other items
+      faqItems.forEach((otherItem, otherIndex) => {
+        if (otherIndex !== index) {
+          otherItem.classList.remove('active');
+        }
+      });
+      
+      // Toggle current item
+      item.classList.toggle('active');
+    }
+
+    function filterFAQ(category) {
+      // Update active button
+      document.querySelectorAll('.faq-category-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      // Filter FAQs
+      const filteredFAQs = category === 'tous' 
+        ? faqData 
+        : faqData.filter(faq => faq.category === category);
+      
+      displayFAQ(filteredFAQs);
+    }
+
+    function showCategory(category) {
+      // Scroll to FAQ section
+      document.querySelector('.faq-section').scrollIntoView({ behavior: 'smooth' });
+      
+      // Filter by category after a short delay
+      setTimeout(() => {
+        filterFAQ(category);
+        
+        // Update active button
+        document.querySelectorAll('.faq-category-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelector(`[onclick="filterFAQ('${category}')"]`).classList.add('active');
+      }, 500);
+    }
+
+    // Search functionality
+    document.getElementById('faq-search').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const filteredFAQs = faqData.filter(faq => 
+        faq.question.toLowerCase().includes(searchTerm) || 
+        faq.answer.toLowerCase().includes(searchTerm)
+      );
+      displayFAQ(filteredFAQs);
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', initializeFAQ);
+  </script>
+</body>
+</html>

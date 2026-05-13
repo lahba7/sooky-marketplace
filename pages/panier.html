@@ -280,92 +280,14 @@
       <div class="cart-layout">
         <!-- CART ITEMS -->
         <div class="cart-items">
-          <!-- Item 1 -->
-          <div class="cart-item">
-            <div class="cart-item-image" style="background-image: url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80')"></div>
-            <div class="cart-item-info">
-              <h3>Huile d'olive extra vierge artisanale</h3>
-              <div class="cart-item-shop">📍 Épicerie Bennani</div>
-              <div class="cart-item-price">85 DH</div>
-            </div>
-            <div class="cart-item-actions">
-              <div class="quantity-controls">
-                <button class="quantity-btn">−</button>
-                <span class="quantity-value">2</span>
-                <button class="quantity-btn">+</button>
-              </div>
-              <button class="remove-btn">🗑️ Retirer</button>
-            </div>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="cart-item">
-            <div class="cart-item-image" style="background-image: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&q=80')"></div>
-            <div class="cart-item-info">
-              <h3>Huile d'argan cosmétique pure 100ml</h3>
-              <div class="cart-item-shop">📍 Argan Bleu</div>
-              <div class="cart-item-price">120 DH</div>
-            </div>
-            <div class="cart-item-actions">
-              <div class="quantity-controls">
-                <button class="quantity-btn">−</button>
-                <span class="quantity-value">1</span>
-                <button class="quantity-btn">+</button>
-              </div>
-              <button class="remove-btn">🗑️ Retirer</button>
-            </div>
-          </div>
-
-          <!-- Item 3 -->
-          <div class="cart-item">
-            <div class="cart-item-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80')"></div>
-            <div class="cart-item-info">
-              <h3>Miel de thym pur 500g</h3>
-              <div class="cart-item-shop">📍 Miel du Rif</div>
-              <div class="cart-item-price">150 DH</div>
-            </div>
-            <div class="cart-item-actions">
-              <div class="quantity-controls">
-                <button class="quantity-btn">−</button>
-                <span class="quantity-value">1</span>
-                <button class="quantity-btn">+</button>
-              </div>
-              <button class="remove-btn">🗑️ Retirer</button>
-            </div>
+          <div class="cart-items-container">
+            <!-- Les articles seront chargés dynamiquement -->
           </div>
         </div>
 
         <!-- CART SUMMARY -->
         <div class="cart-summary">
-          <h2>Récapitulatif</h2>
-          
-          <div class="summary-line">
-            <span>Sous-total (4 articles)</span>
-            <span class="amount">440 DH</span>
-          </div>
-          
-          <div class="summary-line">
-            <span>Livraison</span>
-            <span class="amount">30 DH</span>
-          </div>
-          
-          <div class="summary-line">
-            <span>Réduction</span>
-            <span class="amount" style="color: var(--success);">-20 DH</span>
-          </div>
-          
-          <div class="summary-line total">
-            <span>Total</span>
-            <span class="amount">450 DH</span>
-          </div>
-
-          <button class="btn btn-primary checkout-btn">
-            Passer la commande →
-          </button>
-
-          <div style="margin-top: 20px; padding: 16px; background: var(--bg-secondary); border-radius: 12px; text-align: center; font-size: 13px; color: var(--text-muted);">
-            🔒 Paiement 100% sécurisé
-          </div>
+          <!-- Le résumé sera chargé dynamiquement -->
         </div>
       </div>
     </div>
@@ -413,6 +335,12 @@
     </div>
   </footer>
 
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dynamic-data.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/favorites.js"></script>
 </body>
 </html>

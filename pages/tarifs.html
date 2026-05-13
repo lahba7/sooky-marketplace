@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarifs — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .pricing-hero {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .pricing-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .pricing-hero p {
+      font-size: 20px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .pricing-section {
+      padding: 80px 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-3d);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured::before {
+      content: 'Recommandé';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-name {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .plan-description {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-family: 'Fraunces', serif;
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .price-unit {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .price-note {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin: 32px 0;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      font-size: 16px;
+      color: var(--text-primary);
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      width: 24px;
+      height: 24px;
+      background: var(--success);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .plan-features li.unavailable {
+      opacity: 0.5;
+    }
+
+    .plan-features li.unavailable::before {
+      content: '×';
+      background: var(--text-muted);
+    }
+
+    .plan-cta {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .plan-cta.primary {
+      background: var(--primary);
+      color: white;
+      border: 2px solid var(--primary);
+    }
+
+    .plan-cta.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .plan-cta.secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .plan-cta.secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .comparison-section {
+      background: var(--bg-secondary);
+      padding: 80px 0;
+    }
+
+    .comparison-table {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-top: 40px;
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-table th {
+      background: var(--bg-secondary);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .comparison-table td {
+      color: var(--text-secondary);
+    }
+
+    .comparison-table .feature-name {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .check-icon {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .cross-icon {
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .faq-section {
+      padding: 80px 0;
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .faq-question {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .faq-answer {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-hero h1 {
+        font-size: 36px;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured {
+        transform: none;
+      }
+
+      .comparison-table {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pricing-hero">
+    <div class="container">
+      <h1>Tarifs transparents</h1>
+      <p>Pas de frais cachés, pas d'abonnement. Payez seulement quand vous vendez.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="container">
+      <div class="pricing-grid">
+        
+        <!-- PLAN GRATUIT -->
+        <div class="pricing-card">
+          <div class="plan-name">Gratuit</div>
+          <div class="plan-description">Pour commencer à vendre sans engagement</div>
+          
+          <div class="plan-price">
+            <span class="price-amount">0%</span>
+            <span class="price-unit">de commission</span>
+          </div>
+          <div class="price-note">Les 30 premiers jours</div>
+          
+          <ul class="plan-features">
+            <li>Boutique en ligne</li>
+            <li>5 produits maximum</li>
+            <li>Paiement à la livraison</li>
+            <li>Support par email</li>
+            <li class="unavailable">Paiement en ligne</li>
+            <li class="unavailable">Statistiques avancées</li>
+            <li class="unavailable">Promotion de produits</li>
+          </ul>
+          
+          <a href="creer-boutique.html" class="plan-cta secondary">Commencer gratuitement</a>
+        </div>
+
+        <!-- PLAN STANDARD -->
+        <div class="pricing-card featured">
+          <div class="plan-name">Standard</div>
+          <div class="plan-description">Pour les commerçants qui veulent développer leur activité</div>
+          
+          <div class="plan-price">
+            <span class="price-amount">3%</span>
+            <span class="price-unit">de commission</span>
+          </div>
+          <div class="price-note">Par vente réalisée</div>
+          
+          <ul class="plan-features">
+            <li>Boutique en ligne professionnelle</li>
+            <li>Produits illimités</li>
+            <li>Paiement en ligne sécurisé</li>
+            <li>Paiement à la livraison</li>
+            <li>Tableau de bord complet</li>
+            <li>Support prioritaire 7j/7</li>
+            <li>Statistiques détaillées</li>
+            <li>Promotion de produits</li>
+          </ul>
+          
+          <a href="creer-boutique.html" class="plan-cta primary">Choisir Standard</a>
+        </div>
+
+        <!-- PLAN PREMIUM -->
+        <div class="pricing-card">
+          <div class="plan-name">Premium</div>
+          <div class="plan-description">Pour les grandes boutiques avec besoins avancés</div>
+          
+          <div class="plan-price">
+            <span class="price-amount">2%</span>
+            <span class="price-unit">de commission</span>
+          </div>
+          <div class="price-note">+ 99 DH/mois</div>
+          
+          <ul class="plan-features">
+            <li>Tout du plan Standard</li>
+            <li>Commission réduite</li>
+            <li>Domaine personnalisé</li>
+            <li>Design sur mesure</li>
+            <li>API pour intégrations</li>
+            <li>Support dédié</li>
+            <li>Formation personnalisée</li>
+            <li>Rapports avancés</li>
+          </ul>
+          
+          <a href="creer-boutique.html" class="plan-cta secondary">Choisir Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Comparaison détaillée</h2>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Fonctionnalités</th>
+              <th>Gratuit</th>
+              <th>Standard</th>
+              <th>Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">Nombre de produits</td>
+              <td>5 maximum</td>
+              <td>Illimité</td>
+              <td>Illimité</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Commission par vente</td>
+              <td>0% (30 jours)</td>
+              <td>3%</td>
+              <td>2%</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Paiement en ligne</td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Paiement à la livraison</td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Statistiques</td>
+              <td>Basiques</td>
+              <td>Détaillées</td>
+              <td>Avancées</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Support client</td>
+              <td>Email</td>
+              <td>7j/7 prioritaire</td>
+              <td>Dédié</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Promotion produits</td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Domaine personnalisé</td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">API intégrations</td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="cross-icon">×</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">Questions fréquentes</h2>
+      
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-question">Quand dois-je payer la commission ?</div>
+          <div class="faq-answer">
+            La commission est prélevée automatiquement lors du paiement de vos ventes. Vous recevez le montant net directement sur votre compte bancaire sous 48h.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Y a-t-il des frais cachés ?</div>
+          <div class="faq-answer">
+            Non, aucun frais caché. Pas de frais d'inscription, pas d'abonnement mensuel. Vous payez seulement la commission sur vos ventes réalisées.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Puis-je changer de plan à tout moment ?</div>
+          <div class="faq-answer">
+            Oui, vous pouvez passer du plan Gratuit au Standard à tout moment. Pour le plan Premium, contactez notre équipe pour une migration personnalisée.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Comment fonctionne la période gratuite ?</div>
+          <div class="faq-answer">
+            Les 30 premiers jours, vous ne payez aucune commission sur vos ventes (limité à 5 produits). Après cette période, vous passez automatiquement au plan Standard.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Quels moyens de paiement acceptez-vous ?</div>
+          <div class="faq-answer">
+            Vos clients peuvent payer par carte bancaire (Visa, Mastercard), paiement à la livraison, ou virement bancaire. Tous les paiements sont sécurisés.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Puis-je annuler mon compte à tout moment ?</div>
+          <div class="faq-answer">
+            Oui, vous pouvez fermer votre boutique à tout moment sans frais. Vos données restent sauvegardées pendant 90 jours en cas de réactivation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="categories.html">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="guide-vendeur.html">Guide du vendeur</a></li>
+            <li><a href="success-stories.html">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="mission.html">Notre mission</a></li>
+            <li><a href="aide.html">Aide & FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cgu.html">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

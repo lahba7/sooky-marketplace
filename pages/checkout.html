@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finaliser ma commande — Sooky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .checkout-page {
+      padding: 40px 0 80px;
+      background: var(--bg-secondary);
+    }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .checkout-form {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .checkout-section {
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checkout-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-primary);
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .payment-methods {
+      display: grid;
+      gap: 16px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .payment-method:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+    }
+
+    .payment-method.selected {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .payment-radio {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .payment-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .payment-info h4 {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .payment-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .promo-section {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+    }
+
+    .promo-input-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .promo-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .promo-btn {
+      padding: 12px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .promo-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .order-summary {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .summary-title {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-image {
+      width: 60px;
+      height: 60px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+    }
+
+    .item-info h4 {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .item-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .item-price {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      font-size: 15px;
+    }
+
+    .summary-line.total {
+      border-top: 2px solid var(--border);
+      margin-top: 16px;
+      padding-top: 20px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .summary-line.total .amount {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      padding: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 24px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 16px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+    }
+
+    .place-order-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 12px;
+      font-size: 13px;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    @media (max-width: 968px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: static;
+        order: -1;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="logo">sooky</a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input type="text" placeholder="Rechercher des produits, boutiques...">
+        </div>
+        
+        <div class="nav-links">
+          <a href="boutiques.html">Boutiques</a>
+          <a href="connexion.html">Connexion</a>
+          <a href="panier.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <a href="vendre.html" class="btn btn-primary">Vendre sur Sooky</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CHECKOUT PAGE -->
+  <section class="checkout-page">
+    <div class="container">
+      <h1 class="section-title" style="text-align: center; margin-bottom: 40px;">Finaliser ma commande</h1>
+
+      <div class="checkout-layout">
+        <!-- CHECKOUT FORM -->
+        <div class="checkout-form">
+          <form id="checkout-form">
+            <!-- INFORMATIONS DE LIVRAISON -->
+            <div class="checkout-section">
+              <h2 class="section-title">
+                <span class="section-icon">📍</span>
+                Informations de livraison
+              </h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="firstName">Prénom *</label>
+                  <input type="text" id="firstName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="lastName">Nom *</label>
+                  <input type="text" id="lastName" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email *</label>
+                <input type="email" id="email" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">Téléphone *</label>
+                <input type="tel" id="phone" class="form-input" placeholder="+212 6XX XXX XXX" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="address">Adresse complète *</label>
+                <input type="text" id="address" class="form-input" placeholder="Numéro, rue, quartier..." required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="city">Ville *</label>
+                  <select id="city" class="form-select" required>
+                    <option value="">Choisir une ville</option>
+                    <option value="casablanca">Casablanca</option>
+                    <option value="rabat">Rabat</option>
+                    <option value="marrakech">Marrakech</option>
+                    <option value="fes">Fès</option>
+                    <option value="tanger">Tanger</option>
+                    <option value="agadir">Agadir</option>
+                    <option value="meknes">Meknès</option>
+                    <option value="oujda">Oujda</option>
+                    <option value="tetouan">Tétouan</option>
+                    <option value="safi">Safi</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="postalCode">Code postal</label>
+                  <input type="text" id="postalCode" class="form-input" placeholder="20000">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="notes">Instructions de livraison (optionnel)</label>
+                <input type="text" id="notes" class="form-input" placeholder="Étage, interphone, point de repère...">
+              </div>
+            </div>
+
+            <!-- MODE DE PAIEMENT -->
+            <div class="checkout-section">
+              <h2 class="section-title">
+                <span class="section-icon">💳</span>
+                Mode de paiement
+              </h2>
+
+              <div class="payment-methods">
+                <label class="payment-method" for="cash">
+                  <input type="radio" id="cash" name="payment" value="cash" class="payment-radio" checked>
+                  <div class="payment-icon">💵</div>
+                  <div class="payment-info">
+                    <h4>Paiement à la livraison</h4>
+                    <p>Payez en espèces lors de la réception</p>
+                  </div>
+                </label>
+
+                <label class="payment-method" for="card">
+                  <input type="radio" id="card" name="payment" value="card" class="payment-radio">
+                  <div class="payment-icon">💳</div>
+                  <div class="payment-info">
+                    <h4>Carte bancaire</h4>
+                    <p>Paiement sécurisé par carte</p>
+                  </div>
+                </label>
+
+                <label class="payment-method" for="transfer">
+                  <input type="radio" id="transfer" name="payment" value="transfer" class="payment-radio">
+                  <div class="payment-icon">🏦</div>
+                  <div class="payment-info">
+                    <h4>Virement bancaire</h4>
+                    <p>Virement vers notre compte</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- CODE PROMO -->
+            <div class="checkout-section">
+              <h2 class="section-title">
+                <span class="section-icon">🎁</span>
+                Code promo
+              </h2>
+
+              <div class="promo-section">
+                <div class="promo-input-group">
+                  <input type="text" id="promoCode" class="promo-input" placeholder="Entrez votre code promo">
+                  <button type="button" class="promo-btn" onclick="applyPromoCode()">Appliquer</button>
+                </div>
+                <div id="promo-message" style="margin-top: 12px; font-size: 14px; display: none;"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="order-summary">
+          <h2 class="summary-title">Récapitulatif</h2>
+
+          <div id="order-items">
+            <!-- Les articles seront chargés dynamiquement -->
+          </div>
+
+          <div class="summary-line">
+            <span>Sous-total</span>
+            <span id="subtotal">0 DH</span>
+          </div>
+
+          <div class="summary-line">
+            <span>Livraison</span>
+            <span id="shipping">30 DH</span>
+          </div>
+
+          <div class="summary-line" id="discount-line" style="display: none;">
+            <span>Réduction</span>
+            <span id="discount" style="color: var(--success);">-0 DH</span>
+          </div>
+
+          <div class="summary-line total">
+            <span>Total</span>
+            <span class="amount" id="total">0 DH</span>
+          </div>
+
+          <button type="submit" form="checkout-form" class="place-order-btn">
+            Confirmer la commande
+          </button>
+
+          <div class="security-note">
+            🔒 Paiement 100% sécurisé
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="logo" style="display: block; margin-bottom: 16px;">sooky</a>
+          <p class="footer-tagline">La marketplace qui connecte les acheteurs avec les petits commerçants du Maroc. Produits uniques, artisanaux et locaux.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Acheter</h4>
+          <ul>
+            <li><a href="categories.html">Toutes les catégories</a></li>
+            <li><a href="boutiques.html">Toutes les boutiques</a></li>
+            <li><a href="#">Nouveautés</a></li>
+            <li><a href="#">Promotions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Vendre</h4>
+          <ul>
+            <li><a href="vendre.html">Ouvrir ma boutique</a></li>
+            <li><a href="#">Tarifs</a></li>
+            <li><a href="#">Guide du vendeur</a></li>
+            <li><a href="#">Success stories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>À propos</h4>
+          <ul>
+            <li><a href="#">Notre mission</a></li>
+            <li><a href="#">Aide & FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">CGU</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sooky — Marketplace des commerçants marocains 🇲🇦
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dynamic-data.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/favorites.js"></script>
+  <script src="../js/checkout.js"></script>
+  <script src="../js/payment-integrations.js"></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

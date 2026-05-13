@@ -294,10 +294,8 @@ function proceedToCheckout() {
     return;
   }
   
-  // Pour l'instant, juste une alerte (sera remplacé par une vraie page de checkout)
-  alert('Fonctionnalité de paiement en cours de développement.\n\nVotre commande:\n' + 
-    cart.map(item => `- ${item.name} (×${item.quantity}): ${item.price * item.quantity} DH`).join('\n') +
-    `\n\nTotal: ${getCartTotal()} DH`);
+  // Rediriger vers la page de checkout
+  window.location.href = 'checkout.html';
 }
 
 // Exposer les fonctions globalement
